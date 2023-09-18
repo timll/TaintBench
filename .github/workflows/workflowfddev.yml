@@ -24,8 +24,8 @@ jobs:
       BREW: /home/runner/work/TaintBench/TaintBench/TBFramework/BREW-2.0.0-SNAPSHOT-EMSE 
       TBMAPPER: /home/runner/work/TaintBench/TaintBench/TBFramework/TBSaSMapper-1.0-SNAPSHOT-EMSE
       TOOL: /home/runner/work/TaintBench/TaintBench/AnalysisTools/FlowDroid
-      VERSION: fd271
-      CONFIG: /home/runner/work/TaintBench/TaintBench/taintbench_brew_configs/fd271
+      VERSION: fddev
+      CONFIG: /home/runner/work/TaintBench/TaintBench/taintbench_brew_configs/fddev
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -155,6 +155,8 @@ jobs:
     - run: ls TBFramework/BREW-2.0.0-SNAPSHOT-EMSE
 
     - run: ls TBFramework/TBSaSMapper-1.0-SNAPSHOT-EMSE
+
+    - run: ls $TOOL
     
 ######################################################################
 #                 Run FlowDroid develop
@@ -162,6 +164,9 @@ jobs:
 ######################################################################
     - name: Prepare
       run: |
+          echo move flowdroid jar from target
+          cp $TOOL/soot-infoflow-cmd/target/soot-infoflow-cmd-jar-with-dependencies.jar $TOOL/soot-infoflow-cmd-jar-with-dependencies.jar
+      
           echo make sure the scripts are executable
           sudo cp taintbench_brew_configs/flushMemory.sh $BREW/flushMemory.sh
           sudo cp taintbench_brew_configs/killpid.sh $BREW/killpid.sh
