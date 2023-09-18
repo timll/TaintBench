@@ -137,8 +137,9 @@ jobs:
       with:
         repository: secure-software-engineering/FlowDroid
         ref: 'develop'
+        path: 'FlowDroid'
 
-    - run: mvn package -DskipTests
+    - run: cd FlowDroid && mvn package -DskipTests
         
 ######################################################################
     - name: Remove .Zip files
